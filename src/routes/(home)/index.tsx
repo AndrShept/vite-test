@@ -17,7 +17,9 @@ const Index =  ()=> {
       {arr.map((item, idx) => (
         <Card  key={idx} setArr={setArr} item={item} />
       ))}
+      <p>sdasd</p>
     </div>
+  
   )
 }
 export const Route = createFileRoute('/(home)/')({
