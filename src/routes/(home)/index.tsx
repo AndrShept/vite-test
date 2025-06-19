@@ -17,7 +17,9 @@ console.log('render')
       {arr.map((item, idx) => (
         <Card  key={item.id} setArr={setArr} item={item}  />
       ))}
+      <p>sdasd</p>
     </div>
+  
   )
 }
 export const Route = createFileRoute('/(home)/')({
