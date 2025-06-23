@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { usePost, type PostType } from '@/store/post-store';
 import React, {
   memo,
   useState,
@@ -7,47 +8,25 @@ import React, {
 } from 'react';
 
 interface Props {
-  item: {
-    name: number;
-    isSelected: boolean;
-    id:string
-  };
-  setArr: Dispatch<
-    SetStateAction<
-      {
-        name: number;
-        isSelected: boolean;
-        id: string;
-      }[]
-    >
-  >;
+  post: PostType;
 }
 
-export const Card = memo(({ item, setArr }: Props) => {
+export const Card = memo(function Card({ post }: Props) {
   console.log('card');
-  const onChange = () => {
-    setArr((prev) => {
-      return prev.map((card) => {
-        if (card.name === item.name) {
-          return { ...card, isSelected: !card.isSelected };
-        }
-        return card;
-      });
-    });
-  };
-  const onDelete = (id: string) => {
-    setArr((prev) => prev.filter((item) => item.id !== id));
-  };
+  const onChange = usePost((state) => state.onChange);
+  const onDelete = usePost((state) => state.onDelete);
+  // const { onChange, onDelete } = usePost(state => state);
+
   return (
     <article
-      onClick={onChange}
+      onClick={() => onChange(post.id)}
       className={cn('border p-10 hover:bg-secondary/30 ', {
-        'border-green-500': item.isSelected,
+        'border-green-500': post.isSelected,
       })}
     >
-      {item.name}
+      {post.name}
       <button
-        onClick={() => onDelete(item.id)}
+        onClick={() => onDelete(post.id)}
         className='text-red-500 hover:bg-secondary rounded-md border size-7 flex items-center justify-center   '
       >
         X
